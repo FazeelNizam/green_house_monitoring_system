@@ -15,9 +15,7 @@ Data is aggregated wirelessly and logged, ready for processing by a central hub 
 - [Unit 1: Environmental Sensor Hub](#unit-1-environmental-sensor-hub)
 - [Unit 2: Soil & Data Aggregator](#unit-2-soil--data-aggregator)
 - [Unit 3: ATMOS 41 Weather Station](#unit-3-atmos-41-weather-station)
-- [Software & Setup Guide](#software--setup-guide)
 - [Data Output Format](#data-output-format)
-- [Repository Structure](#repository-structure)
 
 ---
 
@@ -127,8 +125,3 @@ Timestamp,Solar_Rad,Precip,Lightning_Count,Lightning_Dist,Wind_Speed,Wind_Dir,Gu
 ```
 
 ---
-│  ├─ TEROS-10-datasheet.pdf
-│  ├─ TEROS-22-datasheet.pdf
-│  └─ ATMOS-41-datasheet.pdf
-└─ README.md
-```
