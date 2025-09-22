@@ -77,88 +77,33 @@ The system operates on a **hub-and-spoke model**.
 Measures ambient air quality and environmental data.  
 It creates a Wi-Fi Access Point and serves sensor readings as a **JSON object** upon request.
 
-- **Code**: [`/firmware/environmental_sensor_code.ino`](./firmware/environmental_sensor_code.ino)  
-- **Sensors**: SHT31 (Temp/Humidity), MH-Z19C (CO2), MQ-4 (Methane), Pyranometer (Solar Radiation)
+- **Sensors**: SHT31 (Temp/Humidity), MH-Z14A (CO2), MQ-4 (Methane), SP Lite 02 Pyranometer (Solar Radiation)
 
 ### Finished Circuit & Connections
 This image shows the final assembled circuit for the Environmental Hub.
 
 ![Environmental Hub Finished Circuit](./images/environmental_hub_finished_circuit.jpg)
 
-| Sensor | Interfacing Photo | Datasheet |
-|-------|--------------------|-----------|
-| **SHT31** | ![SHT31 Wiring](./images/sht31_wiring.jpg) | [SHT31 Datasheet](./datasheets/SHT31-datasheet.pdf) |
-| **MH-Z19C** | ![MH-Z19C Wiring](./images/mhz19c_wiring.jpg) | [MH-Z19C Datasheet](./datasheets/MH-Z19C-datasheet.pdf) |
-| **MQ-4** | ![MQ-4 Wiring](./images/mq4_wiring.jpg) | [MQ-4 Datasheet](./datasheets/MQ-4-datasheet.pdf) |
-| **Pyranometer** | ![Pyranometer Wiring](./images/pyranometer_wiring.jpg) | [Pyranometer Datasheet](./datasheets/pyranometer-datasheet.pdf) |
-
 ---
 
 ## Unit 2: Soil & Data Aggregator
 Gathers soil data and aggregates it with data from the Environmental Hub.  
 Outputs a combined **CSV string** to its serial port.
-
-- **Code**: [`/firmware/Teros10_and_22_sensor_code.ino`](./firmware/Teros10_and_22_sensor_code.ino)  
+ 
 - **Sensors**: 6x TEROS 10 (VWC), 6x TEROS 22 (VWC, Temp, EC), DS3231 RTC
 
 ### Finished Circuit & Connections
-![Soil Aggregator Finished Circuit](./images/soil_aggregator_finished_circuit.jpg)
-
-| Sensor | Interfacing Photo | Datasheet |
-|-------|--------------------|-----------|
-| **TEROS 10** | ![TEROS 10 Wiring](./images/teros10_wiring.jpg) | [TEROS 10 Datasheet](./datasheets/TEROS-10-datasheet.pdf) |
-| **TEROS 22** | ![TEROS 22 Wiring](./images/teros22_wiring.jpg) | [TEROS 22 Datasheet](./datasheets/TEROS-22-datasheet.pdf) |
+![Soil Aggregator Finished Circuit](https://github.com/FazeelNizam/green_house_monitoring_system/blob/main/Images/Logger%20Circuit.jpg)
 
 ---
 
 ## Unit 3: ATMOS 41 Weather Station
 A standalone, all-in-one weather station that logs detailed meteorological data directly to an **SD card**.
 
-- **Code**: [`/firmware/Atmos41_Gen_2_Weather_station_code.ino`](./firmware/Atmos41_Gen_2_Weather_station_code.ino)  
 - **Sensors**: METER ATMOS 41, DS3231 RTC
 
 ### Finished Circuit & Connections
-![ATMOS 41 Finished Circuit](./images/atmos41_finished_circuit.jpg)
-
-| Sensor | Interfacing Photo | Datasheet |
-|-------|--------------------|-----------|
-| **ATMOS 41** | ![ATMOS 41 Wiring](./images/atmos41_wiring.jpg) | [ATMOS 41 Datasheet](./datasheets/ATMOS-41-datasheet.pdf) |
-
----
-
-## Software & Setup Guide
-
-### 1. Required Libraries
-Install these libraries via the **Arduino IDE Library Manager** (`Sketch > Include Library > Manage Libraries...`).
-
-- **Environmental Hub**:
-  - Adafruit SHT31 Library
-  - Adafruit ADS1X15
-- **Soil & Data Aggregator**:
-  - Adafruit ADS1X15
-  - RTClib
-  - ESP32-SDI12 by Manuel Haim
-  - Arduino_JSON
-- **ATMOS 41 Weather Station**:
-  - SDI12 by EnviroDIY
-  - RTClib
-  - SD
-
-### 2. Setup Instructions
-1. **Assemble Hardware**: Connect all sensors and modules to their respective ESP32 units as shown in the images above and as defined by the pin constants in each code file.  
-2. **Configure Code**:
-   - **Environmental Hub**:  
-     Default Wi-Fi → `SSID: Environment_Sensors`, `PASS: password123`  
-     Calibrate the `RO_IN_CLEAN_AIR` value for your MQ-4 sensor by running it in clean air for several hours and updating the code.
-   - **Soil Aggregator**:  
-     Ensure the `ssid` and `password` variables match the credentials set in the Environmental Hub code.
-3. **Upload Firmware**: Flash each `.ino` file to its corresponding ESP32 board using the Arduino IDE.
-4. **Deploy System**:
-   - Power on the **Environmental Hub** first.
-   - Power on the **Soil & Data Aggregator**. Open the Serial Monitor at `115200` baud to verify it connects to the Hub and starts outputting CSV data.
-   - Power on the **ATMOS 41 Weather Station**. It will automatically begin logging data to the SD card.
-5. **Connect to Pi Zero**: Connect the Soil Aggregator via USB to your Raspberry Pi.  
-   Use a Python script with the `pyserial` library to read the serial port and process the data.
+![ATMOS 41 Finished Circuit](https://github.com/FazeelNizam/green_house_monitoring_system/blob/main/Images/Atmos41%20Connected%20To%20Logger.jpg)
 
 ---
 
@@ -182,30 +127,6 @@ Timestamp,Solar_Rad,Precip,Lightning_Count,Lightning_Dist,Wind_Speed,Wind_Dir,Gu
 ```
 
 ---
-
-## Repository Structure
-```
-.
-├─ firmware/
-│  ├─ environmental_sensor_code.ino
-│  ├─ Teros10_and_22_sensor_code.ino
-│  └─ Atmos41_Gen_2_Weather_station_code.ino
-├─ images/
-│  ├─ environmental_hub_finished_circuit.jpg
-│  ├─ soil_aggregator_finished_circuit.jpg
-│  ├─ atmos41_finished_circuit.jpg
-│  ├─ sht31_wiring.jpg
-│  ├─ mhz19c_wiring.jpg
-│  ├─ mq4_wiring.jpg
-│  ├─ pyranometer_wiring.jpg
-│  ├─ teros10_wiring.jpg
-│  ├─ teros22_wiring.jpg
-│  └─ atmos41_wiring.jpg
-├─ datasheets/
-│  ├─ SHT31-datasheet.pdf
-│  ├─ MH-Z19C-datasheet.pdf
-│  ├─ MQ-4-datasheet.pdf
-│  ├─ pyranometer-datasheet.pdf
 │  ├─ TEROS-10-datasheet.pdf
 │  ├─ TEROS-22-datasheet.pdf
 │  └─ ATMOS-41-datasheet.pdf
