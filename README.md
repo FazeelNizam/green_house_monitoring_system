@@ -8,17 +8,6 @@ Data is aggregated wirelessly and logged, ready for processing by a central hub 
 
 ---
 
-## Table of Contents
-- [System Architecture](#system-architecture)
-- [Key Features](#key-features)
-- [Hardware & Components](#hardware--components)
-- [Unit 1: Environmental Sensor Hub](#unit-1-environmental-sensor-hub)
-- [Unit 2: Soil & Data Aggregator](#unit-2-soil--data-aggregator)
-- [Unit 3: ATMOS 41 Weather Station](#unit-3-atmos-41-weather-station)
-- [Data Output Format](#data-output-format)
-
----
-
 ## System Architecture
 The system operates on a **hub-and-spoke model**.
 
@@ -71,7 +60,30 @@ The system operates on a **hub-and-spoke model**.
 
 ---
 
-## Unit 1: Environmental Sensor Hub
+## Unit 1: Soil & Data Aggregator
+Gathers soil data and aggregates it with data from the Environmental Hub.  
+Outputs a combined **CSV string** to its serial port.
+ 
+- **Sensors**: 6x TEROS 10 (VWC), 6x TEROS 22 (VWC, Temp, EC), DS3231 RTC
+
+### Finished Circuit & Connections
+![Soil Aggregator Finished Circuit](https://github.com/FazeelNizam/green_house_monitoring_system/blob/main/Images/Logger%20Circuit.jpg)
+![Soil Aggregator Connected](https://github.com/FazeelNizam/green_house_monitoring_system/blob/main/Images/Logger%20With%20All%20Sensors%20Connected.jpg)
+
+---
+
+## Unit 2: ATMOS 41 Weather Station
+A standalone, all-in-one weather station that logs detailed meteorological data directly to an **SD card**.
+
+- **Sensors**: METER ATMOS 41, DS3231 RTC
+
+### Finished Circuit & Connections
+![Logger_Finished Circuit](https://github.com/FazeelNizam/green_house_monitoring_system/blob/main/Images/Atmos41%20Logger%20Circuit.jpg)
+![ATMOS 41 Connected](https://github.com/FazeelNizam/green_house_monitoring_system/blob/main/Images/Atmos41%20Connected%20To%20Logger.jpg)
+
+---
+
+## Unit 3: Environmental Sensor Hub
 Measures ambient air quality and environmental data.  
 It creates a Wi-Fi Access Point and serves sensor readings as a **JSON object** upon request.
 
@@ -81,27 +93,6 @@ It creates a Wi-Fi Access Point and serves sensor readings as a **JSON object** 
 This image shows the final assembled circuit for the Environmental Hub.
 
 ![Environmental Hub Finished Circuit](./images/environmental_hub_finished_circuit.jpg)
-
----
-
-## Unit 2: Soil & Data Aggregator
-Gathers soil data and aggregates it with data from the Environmental Hub.  
-Outputs a combined **CSV string** to its serial port.
- 
-- **Sensors**: 6x TEROS 10 (VWC), 6x TEROS 22 (VWC, Temp, EC), DS3231 RTC
-
-### Finished Circuit & Connections
-![Soil Aggregator Finished Circuit](https://github.com/FazeelNizam/green_house_monitoring_system/blob/main/Images/Logger%20Circuit.jpg)
-
----
-
-## Unit 3: ATMOS 41 Weather Station
-A standalone, all-in-one weather station that logs detailed meteorological data directly to an **SD card**.
-
-- **Sensors**: METER ATMOS 41, DS3231 RTC
-
-### Finished Circuit & Connections
-![ATMOS 41 Finished Circuit](https://github.com/FazeelNizam/green_house_monitoring_system/blob/main/Images/Atmos41%20Connected%20To%20Logger.jpg)
 
 ---
 
